@@ -308,9 +308,11 @@ class GameState:
 		left_of_button = self.get_player_to_left(button_player)
 
 		if self.last_valid_raiser and (self.last_valid_raiser in self.get_unfolded_players()):
+			left_of_raiser = self.get_player_to_left(self.last_valid_raiser)
+
 			for players in players_in_pots:
 				players = sorted(players, key= lambda x: x.seat_num)
-				players = sorted(players, key = lambda x: (self.player_list.index(x) - (self.player_list.index(self.last_valid_raiser) +1)) % len(self.player_list))
+				players = sorted(players, key = lambda x: (self.player_list.index(x) - self.player_list.index(left_of_raiser)) % len(self.player_list))
 				players[0].is_showing = True
 				for player1 in players:
 					players_to_compare = players[0:players.index(player1)]
@@ -324,7 +326,7 @@ class GameState:
 			for players in players_in_pots:
 				print(players)
 				players = sorted(players, key = lambda x: x.seat_num)
-				players = sorted(players, key = lambda x: (self.player_list.index(x) - (self.player_list.index(left_of_button) +1)) % len(self.player_list))
+				players = sorted(players, key = lambda x: (self.player_list.index(x) - self.player_list.index(left_of_button)) % len(self.player_list))
 				players[0].is_showing = True
 				for player1 in players:
 					players_to_compare = players[0:players.index(player1)]
