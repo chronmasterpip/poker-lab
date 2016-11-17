@@ -93,6 +93,8 @@ def game_and_session_info(current_session):
 		results = {'board': []}
 		results['currently_playing_seats'] = {i : False for i in range(1,11)}
 
+	return results
+
 
 @app.route('/<current_session_id>/show-gamestate')
 def show_gamestate(current_session_id):
